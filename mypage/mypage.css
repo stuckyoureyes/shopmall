@@ -1,0 +1,212 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  background-color: #ffffff;
+  color: #333;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 40px;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.header .logo {
+  font-weight: bold;
+  font-size: 1.5em;
+}
+
+.nav a,
+.header-right a {
+  margin: 0 15px;
+  text-decoration: none;
+  color: #333;
+  font-size: 1em;
+}
+
+.header-right span {
+  margin-right: 15px;
+}
+
+.main-content {
+  display: flex;
+  padding: 100px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.account-overview {
+  width: 30%;
+  margin-right: 40px;
+}
+
+.account-overview h2 {
+  font-size: 1.2em;
+  margin-bottom: 20px;
+}
+
+.account-summary {
+  font-size: 0.5em;
+  margin-bottom: 30px;
+}
+
+.account-summary div {
+  margin-bottom: 8px;
+}
+
+.order-status {
+  font-size: 0.5em;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.order-status div {
+  font-size: 0.9em;
+}
+
+.account-details {
+  font-size: 0.5em;
+  width: 70%;
+}
+
+.account-details ul {
+  list-style: none;
+}
+
+.account-details li {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  padding: 10px 0;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.account-details li strong {
+  width: 30px;
+  font-size: 1em;
+  color: #555;
+}
+
+.account-details li span {
+  font-size: 0.9em;
+  color: #888;
+  margin-left: 15px;
+}
+/* Footer 전체 스타일 */
+.footer {
+  background-color: #fff;
+  border-top: 1px solid #ddd;
+  padding: 20px 40px;
+  font-size: 0.9em;
+  color: #333;
+}
+
+/* Footer 컨테이너 */
+.footer-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+/* Footer Left */
+.footer-left ul {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-left ul li {
+  margin-bottom: 8px;
+}
+
+.footer-left ul li a {
+  text-decoration: none;
+  color: #333;
+  font-size: 0.9em;
+}
+
+.footer-left .chat-btn {
+  margin-top: 10px;
+  padding: 8px 16px;
+  background-color: #333;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* Footer Center */
+.footer-center {
+  text-align: center;
+}
+
+.customer-service h4 {
+  margin-bottom: 8px;
+  font-weight: bold;
+}
+
+.customer-service p {
+  margin: 5px 0;
+}
+
+.footer-logo h1 {
+  font-size: 2.5em;
+  margin-top: 20px;
+}
+
+/* Footer Right */
+.footer-right ul {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-right ul li {
+  margin-bottom: 8px;
+}
+
+.footer-right ul li a {
+  text-decoration: none;
+  color: #333;
+  font-size: 0.9em;
+}
+
+.bank-info h4 {
+  margin-top: 10px;
+  font-weight: bold;
+}
+
+.bank-info p {
+  margin: 5px 0;
+}
+
+/* Footer Bottom */
+.footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 10px;
+  border-top: 1px solid #ddd;
+}
+
+.footer-bottom p {
+  font-size: 1em;
+  color: #333;
+}
+
+.footer-bottom .inquiry-btn {
+  padding: 8px 16px;
+  background-color: #333;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
