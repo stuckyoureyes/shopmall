@@ -9,26 +9,20 @@ $sliders = array(
         array("image" => "/shopmall/image/image3.png", "title" => "Best Item 3", "description" => "A must-have for this season."),
         array("image" => "/shopmall/image/image4.png", "title" => "Best Item 4", "description" => "Top-rated product."),
         array("image" => "/shopmall/image/image5.png", "title" => "Best Item 5", "description" => "Limited stock available."),
-        array("image" => "/shopmall/image/image6.png", "title" => "Best Item 6", "description" => "Limited stock available."),
-        array("image" => "/shopmall/image/image7.png", "title" => "Best Item 7", "description" => "Limited stock available."),
-        array("image" => "/shopmall/image/image8.png", "title" => "Best Item 8", "description" => "Limited stock available.")
+        array("image" => "/shopmall/image/image6.png", "title" => "Best Item 6", "description" => "Limited stock available.")
     ),
+    // "new" 키 추가
     "new" => array(
         array("image" => "/shopmall/image/image12.png", "title" => "New Arrival 1", "description" => "Check out our latest collection."),
         array("image" => "/shopmall/image/image13.png", "title" => "New Arrival 2", "description" => "Fresh and trendy new item."),
         array("image" => "/shopmall/image/image14.png", "title" => "New Arrival 3", "description" => "Style that speaks to you."),
         array("image" => "/shopmall/image/image15.png", "title" => "New Arrival 4", "description" => "Perfect for all seasons."),
-        array("image" => "/shopmall/image/image16.png", "title" => "New Arrival 5", "description" => "Comfort meets elegance."),
-        array("image" => "/shopmall/image/bag1.png", "title" => "New Arrival 6", "description" => "Sustainable and stylish."),
-        array("image" => "/shopmall/image/bag2.png", "title" => "New Arrival 7", "description" => "Sustainable and stylish."),
-        array("image" => "/shopmall/image/bag3.png", "title" => "New Arrival 8", "description" => "Sustainable and stylish."),
-        array("image" => "/shopmall/image/bag4.png", "title" => "New Arrival 9", "description" => "Sustainable and stylish.")
+        array("image" => "/shopmall/image/image16.png", "title" => "New Arrival 5", "description" => "Comfort meets elegance.")
     )
 );
-?>
-
-<?php
-function renderSlider($sliderData) {
+    
+function renderSlider($sliderData)
+{
     echo "<div class='slider-section'>";
     echo "<div class='image-slider'>";
     echo "<div class='image-track'>";
@@ -47,8 +41,71 @@ function renderSlider($sliderData) {
 }
 ?>
 
+<script>
+   document.querySelectorAll('.image-slider').forEach(slider => {
+    let isDown = false;
+    let startX;
+    let scrollLeft;
+
+    const track = slider.querySelector('.image-track');
+
+    // 마우스로 슬라이드 이동
+    track.addEventListener('mousedown', (e) => {
+        isDown = true;
+        slider.classList.add('active');
+        startX = e.pageX - slider.offsetLeft;
+        scrollLeft = slider.scrollLeft;
+    });
+
+    track.addEventListener('mousemove', (e) => {
+        if (!isDown) return;
+        e.preventDefault();
+        const x = e.pageX - slider.offsetLeft;
+        const walk = (x - startX) * 1.5;
+        slider.scrollLeft = scrollLeft - walk;
+    });
+
+    track.addEventListener('mouseup', () => {
+        isDown = false;
+        slider.classList.remove('active');
+    });
+
+    track.addEventListener('mouseleave', () => {
+        isDown = false;
+        slider.classList.remove('active');
+    });
+
+    // 3초 간격으로 자동 슬라이드
+    let scrollInterval = setInterval(() => {
+        const maxScrollLeft = track.scrollWidth - track.clientWidth; // 최대 스크롤 값
+        if (slider.scrollLeft >= maxScrollLeft - 1) {
+            slider.scrollLeft = 0; // 맨 앞으로 돌아감
+        } else {
+            slider.scrollLeft += slider.clientWidth; // 한 화면씩 이동
+        }
+    }, 3000);
+
+    // 마우스 오버 시 자동 슬라이드 중지, 떠나면 재개
+    slider.addEventListener('mouseover', () => clearInterval(scrollInterval));
+    slider.addEventListener('mouseleave', () => {
+        scrollInterval = setInterval(() => {
+            if (slider.scrollLeft >= maxScrollLeft - 1) {
+                slider.scrollLeft = 0;
+            } else {
+                slider.scrollLeft += slider.clientWidth;
+            }
+        }, 3000);
+    });
+});
+
+</script>
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -57,6 +114,7 @@ function renderSlider($sliderData) {
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
+
 <body>
     <!-- 헤더 -->
     <header class="header">
@@ -72,7 +130,7 @@ function renderSlider($sliderData) {
                 <a href="#"><i class="fa-solid fa-user"></i></a>
                 <a href="#"><i class="fa-solid fa-cart-shopping"></i></a>
             </div>
-            <div class="search-container">  
+            <div class="search-container">
                 <form class="search-form" action="search.php" method="GET">
                     <input type="text" name="query" placeholder="Search products..." class="search-input">
                     <span class="search-icon"><i class="fa-solid fa-magnifying-glass"></i></span>
@@ -84,13 +142,16 @@ function renderSlider($sliderData) {
     <!-- 유튜브 비디오 배경 -->
     <section class="video-banner">
         <div class="youtube-video">
-            <iframe
-                src="https://www.youtube.com/embed/doFK7Eanm3I?autoplay=1&mute=1&loop=1&playlist=doFK7Eanm3I&controls=0&showinfo=0&modestbranding=1"
-                frameborder="0"
-                allow="autoplay; encrypted-media"
-                allowfullscreen
-                title="YouTube video"
-            ></iframe>
+            <video class="background-video" autoplay muted loop playsinline>
+                <source src="gdragon.mp4" type="video/mp4">
+                <!-- 브라우저가 동영상을 지원하지 않는 경우 대체 텍스트 -->
+                동영상이 재생되지 않을 경우 브라우저를 업데이트하거나 지원되는 브라우저를 사용해주세요.
+            </video>
+            <div class="overlay">
+                <h2>24 FW CAMPAIGN</h2>
+                <p>빛으로 물든 시간, 마음이 닿은 자리.</p>
+                <a href="#store" class="btn">스토어 바로가기</a>
+            </div>
         </div>
     </section>
 
@@ -115,14 +176,14 @@ function renderSlider($sliderData) {
     </div>
 
     <?php
-    renderSlider($sliders["new"]);
+    if (isset($sliders["new"])) {
+        renderSlider($sliders["new"]);
+    } else {
+        echo "<p>No new items available.</p>";
+    }
     ?>
 
-    <div class="final-content">
-        <h1>Discover the Latest Trends</h1>
-        <p>Get ready to explore the trendiest styles of the season.</p>
-        <a href="../shop/shop.php" class="btn">Shop Now</a>
-    </div>
+
 
     <!-- 푸터 -->
     <footer class="footer">
@@ -167,40 +228,6 @@ function renderSlider($sliderData) {
         </div>
     </footer>
 
-<script>
-document.querySelectorAll('.image-slider').forEach(slider => {
-    let isDown = false;
-    let startX;
-    let scrollLeft;
-
-    const track = slider.querySelector('.image-track');
-
-    track.addEventListener('mousedown', (e) => {
-        isDown = true;
-        slider.classList.add('active');
-        startX = e.pageX - slider.offsetLeft;
-        scrollLeft = slider.scrollLeft;
-    });
-
-    track.addEventListener('mousemove', (e) => {
-        if (!isDown) return;
-        e.preventDefault();
-        const x = e.pageX - slider.offsetLeft;
-        const walk = (x - startX) * 1.5;
-        slider.scrollLeft = scrollLeft - walk;
-    });
-
-    track.addEventListener('mouseup', () => {
-        isDown = false;
-        slider.classList.remove('active');
-    });
-
-    track.addEventListener('mouseleave', () => {
-        isDown = false;
-        slider.classList.remove('active');
-    });
-});
-</script>
-
 </body>
+
 </html>

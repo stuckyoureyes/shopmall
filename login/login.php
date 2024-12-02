@@ -1,90 +1,68 @@
 <?php
-// Database connection
-$servername = "localhost";
-$username = "root";
-$password = "apmsetup";
-$dbname = "shopmall";
+session_start();
+$conn = new mysqli('localhost', 'root', 'apmsetup', 'shopmall');
 
-// Create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $username = $_POST['username'];
+    $password = $_POST['password'];
 
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
+    $query = "SELECT * FROM users WHERE username = ?";
+    $stmt = $conn->prepare($query);
+    $stmt->bind_param('s', $username);
+    $stmt->execute();
+    $result = $stmt->get_result();
 
-// Retrieve image paths from the database
-$imagePaths = array();
-$sql = "SELECT path FROM images";
-$result = $conn->query($sql);
+    if ($result->num_rows === 1) {
+        $user = $result->fetch_assoc();
 
-if ($result->num_rows > 0) {
-    while($row = $result->fetch_assoc()) {
-        $imagePaths[] = $row["path"];
+        if (password_verify($password, $user['password'])) {
+            // 로그인 성공 시 세션 저장
+            $_SESSION['user_id'] = $user['user_id'];
+            $_SESSION['username'] = $user['username']; // 필요 시 추가 정보 저장
+
+            // 메인 페이지로 리디렉션
+            header('Location: ../main/main.php');
+            exit();
+        } else {
+            $error = "비밀번호가 올바르지 않습니다.";
+        }
+    } else {
+        $error = "사용자를 찾을 수 없습니다.";
     }
-} else {
-    echo "No images found.";
 }
-
-$conn->close();
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vintage Street Login</title>
-    <link rel="stylesheet" href="login.css">
+    <title>로그인</title>
+    <link rel="stylesheet" href="../signup/signup.css">
 </head>
 <body>
-    <div class="container">
-        <!-- Left side with image slideshow -->
-        <div class="image-section">
-            <img src="" alt="Vintage Street Style" class="background-image" id="slideshow" />
-        </div>
-
-        <!-- Right side with login form -->
-        <div class="login-section">
-            <h1 class="login-title">KIMGOON</h1>
-            <form class="login-form">
-                <label for="email" class="label">Email</label>
-                <input type="email" id="email" class="input" required />
-
-                <label for="password" class="label">Password</label>
-                <input type="password" id="password" class="input" required />
-                <br>
-                <a href="#" class="sign-up-link">Sign Up</a>
-                <br><br>
-
-                <button type="submit" class="login-button">Login</button>
-            </form>
-        </div>
-    </div>
-
-    <script>
-        // Pass PHP array to JavaScript
-        const images = <?php echo json_encode($imagePaths); ?>;
-
-        let currentIndex = 0;
-
-        function changeImage() {
-            const slideshow = document.getElementById("slideshow");
-            slideshow.src = images[currentIndex];
-            currentIndex = (currentIndex + 1) % images.length;
+    <div class="form-container">
+        <h1>로그인</h1>
+        <?php
+        // 회원가입 성공 메시지 출력
+        if (isset($_GET['signup']) && $_GET['signup'] == 'success') {
+            echo "<p class='success'>회원가입이 완료되었습니다! 로그인하세요.</p>";
         }
-
-        // Change image every 5 seconds
-        setInterval(changeImage, 5000);
-
-        // Set initial image on page load
-        window.onload = function () {
-            if (images.length > 0) {
-                changeImage();
-            } else {
-                console.log("No images found in the images array.");
-            }
-        };
-    </script>
+        if (!empty($error)) {
+            echo "<p class='error'>$error</p>";
+        }
+        ?>
+        <form method="POST">
+            <div class="form-group">
+                <label for="username">아이디</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+            <div class="form-group">
+                <label for="password">비밀번호</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <button type="submit">로그인</button>
+            <p>아직 회원이 아니신가요? <a href="../signup/signup.php">회원가입</a></p>
+        </form>
+    </div>
 </body>
 </html>
