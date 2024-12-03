@@ -1,0 +1,229 @@
+/* 기본 스타일 */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Pretendard-Regular", Arial, sans-serif;
+  color: #333;
+  background-color: #f8f9fa;
+  padding-top: 100px; /* 고정된 헤더의 높이만큼 공간 확보 */
+}
+
+h1 {
+  text-align: center;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+/* 헤더 스타일 */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 40px;
+  background-color: rgba(255, 255, 255, 0.9); /* 투명 배경 */
+  border-bottom: 1px solid #e5e5e5;
+  position: fixed; /* 스크롤 시 고정 */
+  top: 0;
+  width: 100%; /* 화면 전체 너비 */
+  z-index: 1000; /* 다른 요소 위에 표시 */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* 약간의 그림자 효과 */
+  backdrop-filter: blur(10px); /* 배경 블러 효과 */
+}
+
+.header .logo a {
+  font-weight: bold;
+  font-size: 1.5em;
+  text-decoration: none;
+  color: #333;
+}
+
+.header .nav {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.header .nav a {
+  margin: 0 15px;
+  text-decoration: none;
+  color: #333;
+  font-size: 1em;
+}
+
+.sub-nav {
+  display: flex;
+  align-items: center;
+  flex-direction: row-reverse;
+  gap: 30px;
+}
+
+.icon {
+  display: flex;
+  gap: 20px;
+}
+
+.icon a {
+  color: black;
+}
+
+.search-container {
+  position: relative;
+}
+
+.search-input {
+  padding: 5px 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  outline: none;
+}
+
+.search-icon {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #888;
+}
+
+/* COMMUNITY 메뉴 스타일 */
+.community-menu {
+  position: relative;
+}
+
+.community-menu .category {
+  position: absolute;
+  top: 100%; /* 부모 메뉴 바로 아래 */
+  left: 0;
+  background: rgba(255, 255, 255, 0.7); /* 반투명 배경 */
+  display: none; /* 기본적으로 숨김 */
+  white-space: nowrap; /* 가로로 정렬 */
+  border: 1px solid #ddd;
+  padding: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  z-index: 999;
+}
+
+.community-menu .category li {
+  display: inline-block; /* 가로 정렬 */
+  margin: 0 10px; /* 메뉴 간 간격 */
+  line-height: 40px;
+  vertical-align: top;
+  letter-spacing: 4px;
+  font-size: 12px;
+  font-weight: 300;
+}
+
+.community-menu .category li a {
+  text-decoration: none;
+  color: #333;
+  font-size: 14px;
+  padding: 5px 10px;
+  display: inline-block;
+  transition: background-color 0.3s;
+}
+
+.community-menu .category li a:hover {
+  background-color: #f4f4f4;
+  color: #000;
+}
+
+.community-menu:hover .category {
+  display: block; /* 드롭다운 메뉴 표시 */
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 테이블 스타일 */
+table {
+  width: 100%;
+  margin: 0 auto;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+th,
+td {
+  padding: 15px;
+  text-align: center;
+  border-bottom: 1px solid #ddd;
+}
+
+th {
+  background-color: #f8f8f8;
+  font-weight: bold;
+}
+
+td a {
+  text-decoration: none;
+  color: black;
+}
+
+tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+tr:hover {
+  background-color: #f2f2f2;
+}
+
+/* 페이지네이션 */
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px 0;
+}
+
+.pagination a {
+  display: inline-block;
+  padding: 10px 15px;
+  margin: 0 5px;
+  border: 1px solid #ddd;
+  color: #000;
+  text-decoration: none;
+  border-radius: 5px;
+}
+
+.pagination a.active {
+  background-color: #000;
+  color: #fff;
+}
+
+.pagination a:hover {
+  background-color: #333;
+  color: #fff;
+}
+
+/* 글쓰기 버튼 */
+.write-btn {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 10px;
+}
+
+.write-btn a {
+  display: inline-block;
+  padding: 10px 15px;
+  background-color: #000;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 5px;
+}
+
+.write-btn a:hover {
+  background-color: #333;
+}

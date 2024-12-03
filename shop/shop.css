@@ -7,11 +7,13 @@
 
 body {
   font-family: Arial, sans-serif;
-  background-color: #f8f9fa;
   color: #333;
+  background-color: #f8f9fa;
   padding-top: 100px; /* 고정된 헤더의 높이만큼 공간 확보 */
 }
+
 /* 헤더 스타일 */
+/* Header 고정 및 투명 효과 */
 .header {
   display: flex;
   justify-content: space-between;
@@ -26,28 +28,94 @@ body {
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* 약간의 그림자 효과 */
   backdrop-filter: blur(10px); /* 배경 블러 효과 */
 }
+
 .header .logo a {
-  text-decoration: none;
-  font-size: 1.5rem;
-  color: #000;
   font-weight: bold;
+  font-size: 1.5em;
+  text-decoration: none;
+  color: #333;
+}
+
+.header .nav {
+  display: flex;
+  align-items: center;
+  gap: 20px;
 }
 
 .header .nav a {
   margin: 0 15px;
   text-decoration: none;
   color: #333;
-  font-size: 1rem;
+  font-size: 1em;
 }
 
-/* Sub-header 스타일 */
+/* COMMUNITY 메뉴 스타일 */
+.community-menu {
+  position: relative;
+}
+
+.community-menu .category {
+  position: absolute;
+
+  top: 100%; /* 부모 메뉴 바로 아래 */
+  left: 0;
+  background: rgba(255, 255, 255, 0.7); /* 반투명 배경 */
+  display: none; /* 기본적으로 숨김 */
+  white-space: nowrap; /* 가로로 정렬 */
+  border: 1px solid #ddd;
+  padding: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  z-index: 999;
+}
+
+.community-menu .category li {
+  display: inline-block; /* 가로 정렬 */
+  margin: 0 10px; /* 메뉴 간 간격 */
+  line-height: 40px;
+  vertical-align: top;
+  letter-spacing: 4px;
+  font-size: 12px;
+  font-weight: 300;
+}
+
+.community-menu .category li a {
+  text-decoration: none;
+  color: #333;
+  font-size: 14px;
+  padding: 5px 10px;
+  display: inline-block;
+  transition: background-color 0.3s;
+}
+
+.community-menu .category li a:hover {
+  background-color: #f4f4f4;
+  color: #000;
+}
+
+/* COMMUNITY 메뉴 마우스 호버 시 하위 메뉴 표시 */
+.community-menu:hover .category {
+  display: block; /* 드롭다운 메뉴 표시 */
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+/* 페이드인 효과 */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 검색 및 아이콘 스타일 */
 .sub-nav {
   display: flex;
-  flex-direction: row-reverse;
   align-items: center;
-  padding: 10px 20px;
+  flex-direction: row-reverse;
   gap: 30px;
-  background-color: #fff;
 }
 
 .icon {
@@ -57,7 +125,6 @@ body {
 
 .icon a {
   color: black;
-  font-size: 1.2rem;
 }
 
 .search-container {
@@ -134,6 +201,7 @@ body {
   font-size: 1.2rem; /* 폰트 크기 약간 증가 */
   font-weight: bold;
   margin: 10px 0;
+  text-decoration: none;
   text-transform: uppercase; /* 모든 글자를 대문자로 변환 */
   color: #222;
 }

@@ -36,6 +36,12 @@ body {
   color: #333;
 }
 
+.header .nav {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
 .header .nav a {
   margin: 0 15px;
   text-decoration: none;
@@ -43,6 +49,68 @@ body {
   font-size: 1em;
 }
 
+/* COMMUNITY 메뉴 스타일 */
+.community-menu {
+  position: relative;
+}
+
+.community-menu .category {
+  position: absolute;
+
+  top: 100%; /* 부모 메뉴 바로 아래 */
+  left: 0;
+  background: rgba(255, 255, 255, 0.7); /* 반투명 배경 */
+  display: none; /* 기본적으로 숨김 */
+  white-space: nowrap; /* 가로로 정렬 */
+  border: 1px solid #ddd;
+  padding: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  z-index: 999;
+}
+
+.community-menu .category li {
+  display: inline-block; /* 가로 정렬 */
+  margin: 0 10px; /* 메뉴 간 간격 */
+  line-height: 40px;
+  vertical-align: top;
+  letter-spacing: 4px;
+  font-size: 12px;
+  font-weight: 300;
+}
+
+.community-menu .category li a {
+  text-decoration: none;
+  color: #333;
+  font-size: 14px;
+  padding: 5px 10px;
+  display: inline-block;
+  transition: background-color 0.3s;
+}
+
+.community-menu .category li a:hover {
+  background-color: #f4f4f4;
+  color: #000;
+}
+
+/* COMMUNITY 메뉴 마우스 호버 시 하위 메뉴 표시 */
+.community-menu:hover .category {
+  display: block; /* 드롭다운 메뉴 표시 */
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+/* 페이드인 효과 */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 검색 및 아이콘 스타일 */
 .sub-nav {
   display: flex;
   align-items: center;
@@ -77,6 +145,7 @@ body {
   transform: translateY(-50%);
   color: #888;
 }
+
 /* 비디오 배너 */
 .video-banner {
   position: relative;
@@ -143,8 +212,6 @@ body {
   color: black;
 }
 
-
-
 /* 소개 섹션 스타일 */
 .intro-section,
 .best-item,
@@ -173,38 +240,32 @@ body {
   color: #555;
 }
 
-  /* 슬라이더 스타일 */
-  .slider-section {
-    margin: 20px 0;
+/* 슬라이더 스타일 */
+.slider-section {
+  margin: 20px 0;
 }
 
 .image-slider {
-    overflow: hidden;
-    white-space: nowrap;
-    position: relative;
+  /* overflow: hidden; */
+  white-space: nowrap;
+  position: relative;
 }
 
 .image-track {
-    display: flex;
-    transition: transform 0.5s ease-in-out;
-}
-/* 개별 이미지 카드 스타일 */
-.slider-section {
-  margin: 20px 0;
+  display: flex;
+  transition: transform 0.5s ease-in-out;
 }
 
 .image-card {
   position: relative;
   display: inline-block;
   text-align: center;
-  margin-right: 20px;
 }
 
 .image-card img {
   width: 400px;
   height: 600px;
   object-fit: cover;
-  border-radius: 10px;
   transition: transform 0.3s ease-in-out;
   cursor: pointer;
 }

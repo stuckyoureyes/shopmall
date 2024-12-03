@@ -9,9 +9,10 @@ $sliders = array(
         array("image" => "/shopmall/image/image3.png", "title" => "Best Item 3", "description" => "A must-have for this season."),
         array("image" => "/shopmall/image/image4.png", "title" => "Best Item 4", "description" => "Top-rated product."),
         array("image" => "/shopmall/image/image5.png", "title" => "Best Item 5", "description" => "Limited stock available."),
-        array("image" => "/shopmall/image/image6.png", "title" => "Best Item 6", "description" => "Limited stock available.")
+        array("image" => "/shopmall/image/image6.png", "title" => "Best Item 6", "description" => "Limited stock available."),
+        array("image" => "/shopmall/image/image15.png", "title" => "New Arrival 4", "description" => "Perfect for all seasons."),
+        array("image" => "/shopmall/image/image16.png", "title" => "New Arrival 5", "description" => "Comfort meets elegance.")
     ),
-    // "new" 키 추가
     "new" => array(
         array("image" => "/shopmall/image/image12.png", "title" => "New Arrival 1", "description" => "Check out our latest collection."),
         array("image" => "/shopmall/image/image13.png", "title" => "New Arrival 2", "description" => "Fresh and trendy new item."),
@@ -20,88 +21,26 @@ $sliders = array(
         array("image" => "/shopmall/image/image16.png", "title" => "New Arrival 5", "description" => "Comfort meets elegance.")
     )
 );
-    
-function renderSlider($sliderData)
-{
+
+function renderSlider($sliderData) {
     echo "<div class='slider-section'>";
     echo "<div class='image-slider'>";
     echo "<div class='image-track'>";
+
+    // 원본 이미지 출력
     foreach ($sliderData as $item) {
         echo "<div class='image-card'>";
         echo "<img src='{$item['image']}' alt='{$item['title']}'>";
-        echo "<div class='image-description'>";
-        echo "<h3>{$item['title']}</h3>";
-        echo "<p>{$item['description']}</p>";
-        echo "</div>";
         echo "</div>";
     }
+
+
+ 
     echo "</div>";
     echo "</div>";
     echo "</div>";
 }
 ?>
-
-<script>
-   document.querySelectorAll('.image-slider').forEach(slider => {
-    let isDown = false;
-    let startX;
-    let scrollLeft;
-
-    const track = slider.querySelector('.image-track');
-
-    // 마우스로 슬라이드 이동
-    track.addEventListener('mousedown', (e) => {
-        isDown = true;
-        slider.classList.add('active');
-        startX = e.pageX - slider.offsetLeft;
-        scrollLeft = slider.scrollLeft;
-    });
-
-    track.addEventListener('mousemove', (e) => {
-        if (!isDown) return;
-        e.preventDefault();
-        const x = e.pageX - slider.offsetLeft;
-        const walk = (x - startX) * 1.5;
-        slider.scrollLeft = scrollLeft - walk;
-    });
-
-    track.addEventListener('mouseup', () => {
-        isDown = false;
-        slider.classList.remove('active');
-    });
-
-    track.addEventListener('mouseleave', () => {
-        isDown = false;
-        slider.classList.remove('active');
-    });
-
-    // 3초 간격으로 자동 슬라이드
-    let scrollInterval = setInterval(() => {
-        const maxScrollLeft = track.scrollWidth - track.clientWidth; // 최대 스크롤 값
-        if (slider.scrollLeft >= maxScrollLeft - 1) {
-            slider.scrollLeft = 0; // 맨 앞으로 돌아감
-        } else {
-            slider.scrollLeft += slider.clientWidth; // 한 화면씩 이동
-        }
-    }, 3000);
-
-    // 마우스 오버 시 자동 슬라이드 중지, 떠나면 재개
-    slider.addEventListener('mouseover', () => clearInterval(scrollInterval));
-    slider.addEventListener('mouseleave', () => {
-        scrollInterval = setInterval(() => {
-            if (slider.scrollLeft >= maxScrollLeft - 1) {
-                slider.scrollLeft = 0;
-            } else {
-                slider.scrollLeft += slider.clientWidth;
-            }
-        }, 3000);
-    });
-});
-
-</script>
-
-
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -118,35 +57,46 @@ function renderSlider($sliderData)
 <body>
     <!-- 헤더 -->
     <header class="header">
-        <div class="logo"><a href="main.php">KIMGOON</a></div>
-        <nav class="nav">
-            <a href="main.php">Home</a>
-            <a href="../shop/shop.php">Shop</a>
-            <a href="#">About</a>
-            <a href="#">Contact</a>
-        </nav>
-        <div class="sub-nav">
-            <div class="icon">
-                <a href="#"><i class="fa-solid fa-user"></i></a>
-                <a href="#"><i class="fa-solid fa-cart-shopping"></i></a>
-            </div>
-            <div class="search-container">
-                <form class="search-form" action="search.php" method="GET">
-                    <input type="text" name="query" placeholder="Search products..." class="search-input">
-                    <span class="search-icon"><i class="fa-solid fa-magnifying-glass"></i></span>
-                </form>
-            </div>
+    <div class="logo"><a href="main.php">KIMGOON</a></div>
+    <nav class="nav">
+        <a href="main.php">HOME</a>
+        <a href="../shop/shop.php">SHOP</a>
+        <div class="community-menu">
+            <a href="#">COMMUNITY</a>
+            <ul class="category">
+                <li><a href="/board/free/list.html?board_no=1">NEWS&amp;EVENT</a></li>
+                <li><a href="/product/list_portfolio.html?cate_no=45">COLLECTION</a></li>
+                <li><a href="/board/product/list.html?board_no=4">REVIEW</a></li>
+                <li><a href="/board/product/list.html?board_no=6">Q&amp;A</a></li>
+            </ul>
         </div>
-    </header>
+        <a href="#">CONTACT</a>
+    </nav>
+    <div class="sub-nav">
+        <div class="icon">
+            <a href="#"><i class="fa-solid fa-user"></i></a>
+            <a href="#"><i class="fa-solid fa-cart-shopping"></i></a>
+        </div>
+        <div class="search-container">
+            <form class="search-form" action="search.php" method="GET">
+                <input type="text" name="query" placeholder="Search products..." class="search-input">
+                <span class="search-icon"><i class="fa-solid fa-magnifying-glass"></i></span>
+            </form>
+        </div>
+    </div>
+</header>
+
 
     <!-- 유튜브 비디오 배경 -->
     <section class="video-banner">
         <div class="youtube-video">
-            <video class="background-video" autoplay muted loop playsinline>
-                <source src="gdragon.mp4" type="video/mp4">
-                <!-- 브라우저가 동영상을 지원하지 않는 경우 대체 텍스트 -->
-                동영상이 재생되지 않을 경우 브라우저를 업데이트하거나 지원되는 브라우저를 사용해주세요.
-            </video>
+            <iframe
+                src="https://www.youtube.com/embed/<?php echo $videoID; ?>?autoplay=1&mute=1&loop=1&playlist=<?php echo $videoID; ?>&controls=0&showinfo=0&modestbranding=1"
+                frameborder="0"
+                allow="autoplay; encrypted-media"
+                allowfullscreen
+                title="YouTube video"
+            ></iframe>
             <div class="overlay">
                 <h2>24 FW CAMPAIGN</h2>
                 <p>빛으로 물든 시간, 마음이 닿은 자리.</p>
@@ -154,36 +104,25 @@ function renderSlider($sliderData)
             </div>
         </div>
     </section>
-
     <!-- 소개 섹션 -->
     <section class="intro-section">
         <div class="intro-content">
             <p style="font-weight: bolder">WINTER 2024 CAMPAIGN</p>
-            <p>우리의 여행은 가장 찬란하고 아름다운 시절, 그 풋풋한 감정에서 시작되었습니다. 잠시 잊고 있었지만, 그때의 우리에게는 모든 순간이 소중했고, 인생에서 가장 빛났던 순간들이었습니다. 여행지에 내려앉았던 따스한 빛 그리고 서로의 마음이 닿았던 그 자리까지, 당신의 지금이 우리의 그때와 같이 아름답기를 바랍니다.</p>
+            <p>우리의 여행은 가장 찬란하고 아름다운 시절, 그 풋풋한 감정에서 시작되었습니다...</p>
         </div>
     </section>
 
-    <div class="best-item">
-        <h2>BEST</h2>
+    <?php foreach ($sliders as $key => $sliderData): ?>
+    <div class="<?php echo $key; ?>-item">
+        <h2><?php echo ($key === 'best') ? 'Top Seller' : 'New Arrivals!'; ?></h2>
     </div>
-
-    <?php
-    renderSlider($sliders["best"]);
-    ?>
-
-    <div class="new-item">
-        <h2>NEW</h2>
-    </div>
-
-    <?php
-    if (isset($sliders["new"])) {
-        renderSlider($sliders["new"]);
-    } else {
-        echo "<p>No new items available.</p>";
-    }
-    ?>
-
-
+    <?php renderSlider($sliderData); ?>
+<?php endforeach; ?>
+<br>
+<br>
+<br>
+<br>
+<br>
 
     <!-- 푸터 -->
     <footer class="footer">
@@ -228,6 +167,57 @@ function renderSlider($sliderData)
         </div>
     </footer>
 
-</body>
+    <script>
+    document.querySelectorAll('.image-slider').forEach(slider => {
+    const track = slider.querySelector('.image-track');
+    const cards = slider.querySelectorAll('.image-card');
+    const cardWidth = cards[0].offsetWidth; // 카드 너비 계산
+    let index = 3; // 복제된 요소를 고려한 초기 위치
 
+    // 복제본 생성 (첫 3개, 마지막 3개 복제)
+    for (let i = 0; i < 3; i++) {
+        const firstClone = cards[i].cloneNode(true); // 첫 번째 세 개 복제
+        const lastClone = cards[cards.length - 1 - i].cloneNode(true); // 마지막 세 개 복제
+        track.appendChild(firstClone); // 트랙 끝에 추가
+        track.insertBefore(lastClone, track.firstChild); // 트랙 시작에 추가
+    }
+
+
+    // 초기 위치 설정
+    track.style.transform = `translateX(${-cardWidth * index}px)`;
+
+    // 슬라이드 함수
+    const slide = () => {
+        index++;
+        track.style.transition = "transform 0.5s ease-in-out";
+        track.style.transform = `translateX(${-cardWidth * index}px)`;
+
+        // 트랜지션 끝난 후 순환 처리
+        track.addEventListener("transitionend", () => {
+            if (index === cards.length + 1) {
+                // 마지막 복제본에서 실제 첫 번째 이미지로 이동
+                track.style.transition = "none";
+                index = 1;
+                track.style.transform = `translateX(${-cardWidth * index}px)`;
+            } else if (index === 0) {
+                // 첫 번째 복제본에서 실제 마지막 이미지로 이동
+                track.style.transition = "none";
+                index = cards.length;
+                track.style.transform = `translateX(${-cardWidth * index}px)`;
+            }
+        });
+    };
+
+    // 자동 슬라이드
+    let interval = setInterval(slide, 2000);
+
+    // 마우스 오버 시 슬라이드 멈춤
+    slider.addEventListener("mouseenter", () => clearInterval(interval));
+    slider.addEventListener("mouseleave", () => {
+        interval = setInterval(slide, 2000);
+    });
+});
+
+    </script>
+</body>
 </html>
